@@ -5,8 +5,10 @@
 package it.polito.tdp.crimes;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.model.Adiacenti;
 import it.polito.tdp.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,13 +28,13 @@ public class CrimesController {
     private URL location;
 
     @FXML // fx:id="boxAnno"
-    private ComboBox<?> boxAnno; // Value injected by FXMLLoader
+    private ComboBox<Integer> boxAnno; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxMese"
-    private ComboBox<?> boxMese; // Value injected by FXMLLoader
+    private ComboBox<Integer> boxMese; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxGiorno"
-    private ComboBox<?> boxGiorno; // Value injected by FXMLLoader
+    private ComboBox<Integer> boxGiorno; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnCreaReteCittadina"
     private Button btnCreaReteCittadina; // Value injected by FXMLLoader
@@ -48,6 +50,33 @@ public class CrimesController {
 
     @FXML
     void doCreaReteCittadina(ActionEvent event) {
+    	this.txtResult.clear();
+    	StringBuilder builder = new StringBuilder();
+    	Integer anno = this.boxAnno.getValue();
+    	
+    	if(anno==null) {
+    		this.txtResult.setText("devi selezionare un anno!");
+    	}else {
+    		model.createGraph(anno);
+        	
+        	for (Integer distretto : model.getVertici()) {
+        		builder.append("distretto: ");
+        		builder.append(distretto);
+        		for (Adiacenti adiacente : model.trovaAdiacenti(distretto)) {
+            		builder.append("\n distretto ");
+            		builder.append(adiacente.adiacente + "= ");
+            		builder.append(adiacente.distanza);
+            		
+    				
+        			
+    			}
+        		builder.append("\n");
+    		}
+    	}
+    	
+    	
+    	this.txtResult.setText(builder.toString());
+    	
     	
     }
 
@@ -70,5 +99,15 @@ public class CrimesController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	
+//    	
+//    	this.btnCreaReteCittadina.setDisable(true);
+    	this.boxGiorno.setDisable(true);
+    	this.boxMese.setDisable(true);
+    	this.txtN.setDisable(true);
+    	this.btnSimula.setDisable(true);
+
+    	List<Integer> anni = this.model.getAnni();
+			this.boxAnno.getItems().addAll(anni);
     }
 }
