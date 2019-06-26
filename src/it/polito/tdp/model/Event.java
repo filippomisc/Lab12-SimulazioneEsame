@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Event {
 	
-	private Long incident_id;
+	private Integer incident_id;//TODO inizialmente era Long
 	private Integer offense_code;
 	private Integer offense_code_extension;
 	private String offense_type_id;
@@ -19,7 +19,7 @@ public class Event {
 	private Integer is_crime;
 	private Integer is_traffic;
 	
-	public Event(Long incident_id, Integer offense_code, Integer offense_code_extension, String offense_type_id,
+	public Event(Integer incident_id, Integer offense_code, Integer offense_code_extension, String offense_type_id,
 			String offense_category_id, LocalDateTime reported_date, String incident_address, double geo_lon,
 			double geo_lat, Integer district_id, Integer precinct_id, String neighborhood_id, Integer is_crime,
 			Integer is_traffic) {
@@ -40,10 +40,10 @@ public class Event {
 		this.is_traffic = is_traffic;
 	}
 	
-	public Long getIncident_id() {
+	public Integer getIncident_id() {
 		return incident_id;
 	}
-	public void setIncident_id(Long incident_id) {
+	public void setIncident_id(Integer incident_id) {
 		this.incident_id = incident_id;
 	}
 	public Integer getOffense_code() {

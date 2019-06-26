@@ -8,6 +8,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
+import org.jgrapht.traverse.BreadthFirstIterator;
 
 import com.javadocmd.simplelatlng.LatLng;
 import com.javadocmd.simplelatlng.LatLngTool;
@@ -87,6 +88,21 @@ public class Model {
 	}
 
 
+	public List<Integer> getRaggiungibili(int distretto){
+		List<Integer> raggiungibili =new ArrayList<>();
+		
+		BreadthFirstIterator<Integer, DefaultWeightedEdge> bfIterator = new BreadthFirstIterator<Integer, DefaultWeightedEdge>(this.graph, distretto);
+		
+		bfIterator.next();
+		
+		while (bfIterator.hasNext()) {
+			raggiungibili.add(bfIterator.next());
+		}
+		
+		return raggiungibili;
+	}
+	
+	
 	public List<Integer> getVertici() {
 		return vertici;
 	}
